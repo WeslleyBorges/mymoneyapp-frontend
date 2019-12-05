@@ -1,0 +1,1 @@
+Falta o font-awesome e o admin-lte. Só isso mesmo xD
