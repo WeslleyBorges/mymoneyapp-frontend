@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import Content from '../common/templates/content'
 import ContentHeader from '../common/templates/contentheader'
@@ -7,8 +9,17 @@ import TabsHeader from '../common/tabs/tabsHeader'
 import TabsContent from '../common/tabs/tabsContent'
 import TabHeader from '../common/tabs/tabHeader'
 import TabContent from '../common/tabs/tabContent'
+import { showTabs, selectTab } from '../common/tabs/tabActions'
+import { create } from './billingCycleAction'
+import List from './billingCycleList'
+import Form from './billingCycleForm'
 
-export default class extends Component {
+class BillingCycle extends Component {
+  componentWillMount() {
+    this.props.showTabs('tabList', 'tabCreate')
+    this.props.selectTab('tabList')
+  }
+  
   render() {
     return (
       <div>
@@ -22,8 +33,12 @@ export default class extends Component {
               <TabHeader label="Excluir" icon="trash-o" target="tabDelete"></TabHeader>
             </TabsHeader>
             <TabsContent>
-              <TabContent id="tabList">Lista</TabContent>
-              <TabContent id="tabCreate">insert</TabContent>
+              <TabContent id="tabList">
+                <List></List>
+              </TabContent>
+              <TabContent id="tabCreate">
+                <Form onSubmit={this.props.create}></Form>
+              </TabContent>
               <TabContent id="tabUpdate">update</TabContent>
               <TabContent id="tabDelete">delete</TabContent>
             </TabsContent>
@@ -33,3 +48,8 @@ export default class extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => 
+  bindActionCreators({ selectTab, showTabs, create }, dispatch); 
+
+export default connect(null, mapDispatchToProps)(BillingCycle)

@@ -15,7 +15,10 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { credit, debt } = this.props.summary
+    // const { credit, debt } = this.props.summary
+    const credit = 50
+    const debt = 15
+    
     return (
       <div>
         <ContentHeader title="Dashboard" small="Versão 1.0"></ContentHeader>
